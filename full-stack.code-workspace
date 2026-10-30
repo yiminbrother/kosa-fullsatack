@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "back-end"
+		},
+		{
+			"path": "back-end-homework"
+		},
+		{
+			"path": "database"
+		},
+		{
+			"path": "database-homework"
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "disabled",
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}

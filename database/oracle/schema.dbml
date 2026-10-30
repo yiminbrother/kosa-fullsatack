@@ -1,0 +1,61 @@
+// Live Oracle schema ORACLE. Unquoted names displayed in lowercase.
+// Korean notes are descriptive fallbacks when DB comments are absent.
+Project oracle_schema {
+  database_type: 'Oracle'
+}
+
+Table board [note: '게시판'] {
+  board_id "number(*,0)" [pk, not null, increment, note: '게시물 번호']
+  title "varchar2(200 byte)" [not null, note: '제목']
+  content clob [not null, note: '본문']
+  writer "varchar2(15 byte)" [not null, note: '작성자 회원 아이디']
+  writed_at date [not null, note: '작성 일시']
+  product_id "number(*,0)" [not null, note: '상품 번호']
+}
+
+Table member [note: '회원 정보'] {
+  member_id "varchar2(15 byte)" [pk, not null, note: '회원 아이디']
+  member_name "varchar2(20 byte)" [not null, note: '회원 이름']
+  password "varchar2(100 byte)" [not null, note: '비밀번호']
+  email "varchar2(50 byte)" [unique, note: '이메일']
+  joined_at date [not null, default: `sysdate`, note: '가입 일시']
+}
+
+Table orders [note: '회원의 주문 정보'] {
+  order_id "number(*,0)" [pk, not null, increment, note: '주문 번호']
+  member_id "varchar2(50 char)" [not null, note: '주문한 회원 아이디']
+  ordered_at timestamp(6) [not null, default: `current_timestamp`, note: '주문 일시']
+}
+
+Table order_item [note: '주문에 포함된 상품 정보'] {
+  order_id "number(*,0)" [not null, note: '주문 번호']
+  product_id "number(*,0)" [not null, note: '주문한 상품 번호']
+  quantity "number(*,0)" [not null, note: '주문 수량']
+  unit_price "number(*,0)" [not null, note: '주문 당시 상품 한 개의 가격']
+
+  indexes {
+    (order_id, product_id) [pk, name: 'pk_order_item']
+  }
+}
+
+Table product [note: '상품 정보'] {
+  product_id "number(*,0)" [pk, not null, increment, note: '상품 번호']
+  product_name "varchar2(200 byte)" [not null, note: '상품 이름']
+  price "number(*,0)" [not null, note: '상품 가격']
+  seller_id "number(*,0)" [not null, note: '판매자 번호']
+}
+
+Table seller [note: '판매자 정보'] {
+  seller_id "number(*,0)" [pk, not null, increment, note: '판매자 번호']
+  seller_name "varchar2(200 byte)" [not null, note: '판매자 이름']
+  email "varchar2(50 byte)" [unique, not null, note: '판매자 이메일']
+  phone "varchar2(15 byte)" [not null, note: '판매자 연락처']
+  registered_at date [not null, default: `sysdate`, note: '판매자 등록 일시']
+}
+
+Ref fk_board_member: board.writer > member.member_id
+Ref fk_board_product: board.product_id > product.product_id
+Ref fk_orders_member: orders.member_id > member.member_id
+Ref fk_order_item_orders: order_item.order_id > orders.order_id
+Ref fk_order_item_product: order_item.product_id > product.product_id
+Ref fk_product_seller: product.seller_id > seller.seller_id
