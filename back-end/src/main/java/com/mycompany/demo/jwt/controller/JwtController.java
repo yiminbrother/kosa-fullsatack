@@ -1,5 +1,7 @@
 package com.mycompany.demo.jwt.controller;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,25 +13,28 @@ import com.mycompany.demo.jwt.dto.OrderRequest;
 import com.mycompany.demo.jwt.dto.OrderResponse;
 import com.mycompany.demo.jwt.service.JwtService;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.security.SignatureException;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@RestController 
-@RequiredArgsConstructor 
+@RestController
+
 @RequestMapping("/jwt")
-@Slf4j 
+@Slf4j
 public class JwtController {
     private final JwtService jwtService;
+
+    public JwtController(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
 
     @PostMapping("/login")
     public LoginResponse login() {
         Member member = new Member();
+        // jwt 받을 값
         member.setMemberId("user1");
         member.setEmail("user1@mycompany.com");
+        // jwt키 생성
         String jwt = jwtService.createJwt(member);
+        // 인증값 담을 객체
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setStatus("success");
         loginResponse.setJwt(jwt);
@@ -41,22 +46,19 @@ public class JwtController {
         OrderResponse orderResponse = new OrderResponse();
         orderResponse.setStatus("fail");
 
-        try {
-            String jwt = orderRequest.getJwt();
-            jwtService.validateJwt(jwt);
-            orderResponse.setStatus("success");
-            orderResponse.setMessage("유효한 토큰");
-        } catch(MalformedJwtException e) {
-            // JWT의 형식에 위배되었을 경우
-            orderResponse.setMessage("JWT의 형식에 위배");
-        } catch(SignatureException e) {
-            // 비밀키로 복호화를 할 수 없을 경우
-            orderResponse.setMessage("비밀키로 복호화를 할 수 없음");
-        } catch(ExpiredJwtException e) {
-            // 유효기간이 만료되었을 경우
-            orderResponse.setMessage("유효기간이 만료됨");
-        }   
-        
+        String jwt = orderRequest.getJwt();
+        // 유효성 검사
+        jwtService.validateJwt(jwt);
+        orderResponse.setStatus("success");
+        orderResponse.setMessage("유효한 토큰");
+
+        // JWT에서 사용자 ID와 이메일얻기
+        Map<String, String> map = jwtService.getClaims(jwt);
+
+        String memberId = map.get("memberId");
+        String email = map.get("email");
+        log.info("memberId = " + memberId + ", email = " + email);
+
         return orderResponse;
     }
 

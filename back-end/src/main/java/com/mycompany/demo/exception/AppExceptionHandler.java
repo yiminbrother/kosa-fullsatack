@@ -9,14 +9,50 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 
-@RestControllerAdvice 
-@Slf4j 
+@RestControllerAdvice
+@Slf4j
 public class AppExceptionHandler {
+
+    @ExceptionHandler(MalformedJwtException.class)
+    public ResponseEntity<Map<String, Object>> handleMalformedJwtException(MalformedJwtException e) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", "fail");
+        map.put("message", e.getMessage());
+        map.put("methodName", "handleMalformedJwtException");
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(map);
+    }
+
+    @ExceptionHandler(SignatureException.class)
+    public ResponseEntity<Map<String, Object>> handleSignatureException(SignatureException e) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", "fail");
+        map.put("message", e.getMessage());
+        map.put("methodName", "handleSignatureException");
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(map);
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<Map<String, Object>> handleExpiredJwtException(ExpiredJwtException e) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", "fail");
+        map.put("message", e.getMessage());
+        map.put("methodName", "handleExpiredJwtException");
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(map);
+    }
+
     @ExceptionHandler(NoAccountException.class)
     public ResponseEntity<Map<String, Object>> handleNoAccountException(NoAccountException e) {
         Map<String, Object> map = new HashMap<>();
@@ -81,7 +117,7 @@ public class AppExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(map);
-    }    
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleException(Exception e) {

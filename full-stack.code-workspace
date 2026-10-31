@@ -11,6 +11,15 @@
 		},
 		{
 			"path": "database-homework"
+		},
+		{
+			"path": "node-app-test"
+		},
+		{
+			"path": "front-end"
+		},
+		{
+			"path": "front-end-home-work"
 		}
 	],
 	"settings": {
