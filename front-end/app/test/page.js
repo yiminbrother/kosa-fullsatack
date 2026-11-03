@@ -1,26 +1,16 @@
-"use client";
+"use client"
+import ChildComponent from "./ChildComponent";
 
-import { useState } from "react";
-import { metadata } from "../layout"
-
-export default function test() {
-    const [showCard, setShowCard] = useState(false);
-    const [showText, setShowText] = useState(false);
-    let [count, plusCount] = useState(0);
-    let msg = "hello react";
-    let object = {
-        "이름": "111",
-        "나이": "112",
-        "키": "113"
-    };
-
-
+export default function Test(){
+    function handleClick(msg){
+        console.log(msg);
+    }
     return (
-        <>
-         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>{setShowText(!showText)}}>클릭</button>
-        <p hidden={showText}>보임</p>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>{plusCount(count+1)}}></button>
-        <p>{count}</p>
-        </>
+        <div>
+            <div>부모 컴포넌트</div>
+            <button className=" px-4 py-2"onClick={()=>handleClick("안녕하세요")}>클릭1</button>
+            <button className=" px-4 py-2 " onClick={()=>handleClick("안녕하세요")}>클릭2</button>
+            <ChildComponent/>
+        </div>
     );
-};
+}

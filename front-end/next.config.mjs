@@ -5,13 +5,14 @@ const nextConfig = {
   partialPrefetching: true,
   reactCompiler: true,
   turbopack: {
-    rules: {
-      "*.css": {
+      rules: {
+      "globals.css": {
         loaders: ["@tailwindcss/turbopack"],
         as: "*.css",
       },
     },
   },
 };
+
 
 export default nextConfig;

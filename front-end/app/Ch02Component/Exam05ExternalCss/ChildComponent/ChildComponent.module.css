@@ -1,0 +1,7 @@
+.example {
+  padding: 16px;
+  border-radius: 8px;
+  background-color: rgb(255, 0, 0);
+  color: white;
+  font-size: 18px;
+}
