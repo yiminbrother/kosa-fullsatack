@@ -24,7 +24,7 @@ export default function AppMenu() {
             <Link href="/Ch02Component/Exam03Conditon" className="block rounded px-3 py-2 hover:bg-zinc-200">
               Exam03Conditon
             </Link>
-              <Link href="/Ch02Component/Exam04InlineStyle" className="block rounded px-3 py-2 hover:bg-zinc-200">
+            <Link href="/Ch02Component/Exam04InlineStyle" className="block rounded px-3 py-2 hover:bg-zinc-200">
               Exam04InlineStyle
             </Link>
             <Link href="/Ch02Component/Exam05ExternalCss" className="block rounded px-3 py-2 hover:bg-zinc-200">
@@ -36,6 +36,22 @@ export default function AppMenu() {
             <Link href="/Ch02Component/Exam07EventHandling" className="block rounded px-3 py-2 hover:bg-zinc-200">
               Exam07EventHandling
             </Link>
+            <Link href="/Ch02Component/Exam08Repeat" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam08Repeat
+            </Link>
+            <Link href="/Ch02Component/Exam09DomRef" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam09DomRef
+            </Link>
+            <Link href="/Ch02Component/Exam10NestedLayout/PageComponentA" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              PageComponentA
+            </Link>
+            <Link href="/Ch02Component/Exam10NestedLayout/PageComponentB" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              PageComponentB
+            </Link>
+            <Link href="/Ch02Component/Exam11RuntimeErrorHandling" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam11RuntimeErrorHandling
+            </Link>
+
           </div>
         </details>
         <details name="app-menu" className="mt-2">
@@ -48,6 +64,18 @@ export default function AppMenu() {
             </Link>
             <Link href="/Ch03PropsAndState/Exam01Props" className="block rounded px-3 py-2 hover:bg-zinc-200">
               Exam01Props
+            </Link>
+            <Link href="/Ch03PropsAndState/Exam02PrimitiveTypeState" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam02PrimitiveTypeState
+            </Link>
+            <Link href="/Ch03PropsAndState/Exam03ObjectTypeState" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam03ObjectTypeState
+            </Link>
+            <Link href="/Ch03PropsAndState/Exam04FormState" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam04FormState
+            </Link>
+            <Link href="/Ch03PropsAndState/Exam05StateToProp" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam05StateToProp
             </Link>
           </div>
         </details>

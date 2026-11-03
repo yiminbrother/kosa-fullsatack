@@ -4,11 +4,15 @@ import ChildComponent from "./ChildComponent";
 
 export default function Exam07EventHandling() {
 
-  function handleClick1() {
-    console.log("버튼을 클릭함");
+  function handleClick1(event) {
+    console.log(event.target.name); // dom가져옴 event
+    if(event.target.name === "btn1"){
+      console.log("btn1클릭");
+    }
   }
 
-  function handleClick3(name) {
+  function handleClick3(event, name) {
+    console.log(event.target);
     console.log(`${name}을 클릭함`);
   }
 
@@ -24,6 +28,7 @@ export default function Exam07EventHandling() {
         <p>onClick에 이벤트 처리 함수를 전달합니다.</p>
         <div className="flex flex-wrap gap-3">
         <button
+          name="btn1"
           type="button"
           onClick={handleClick1}
           className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
@@ -31,13 +36,14 @@ export default function Exam07EventHandling() {
           버튼1
         </button>
         <button
+          
           type="button"
           onClick={()=>{console.log("버튼2를 클릭함")}}
           className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
         >
           버튼2
         </button>
-            <button
+            {/* <button
           type="button"
           //이런식으로하면 실행하자마자 실행됨
           onClick={handleClick3("버튼3")}
@@ -45,14 +51,15 @@ export default function Exam07EventHandling() {
         >
           
           버튼3
-        </button>
+        </button> */}
         <button
           type="button"
-          onClick={()=>handleClick3("버튼3")}
+          onClick={(event)=>handleClick3(event,"버튼3")}
           className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
         >
-          버튼4
+          버튼3
         </button>
+        </div>
         <hr/> 
         <div onClick={()=>handleClick3("컨테이너")}>
           컨테이너
@@ -60,7 +67,6 @@ export default function Exam07EventHandling() {
         <hr/>
           {/* 자식컴포넌트는 안됨 dom tag만 가능 */}
           <ChildComponent onClick={handleClick4}/>
-        </div>
         
       </div>
     </section>

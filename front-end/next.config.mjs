@@ -4,6 +4,7 @@ const nextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   reactCompiler: true,
+  reactStrictMode: false,
   turbopack: {
       rules: {
       "globals.css": {
