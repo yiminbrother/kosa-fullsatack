@@ -81,6 +81,45 @@ export default function AppMenu() {
         </details>
         <details name="app-menu" className="mt-2">
           <summary className="cursor-pointer rounded px-3 py-2 font-semibold hover:bg-zinc-200">
+            Ch04LifeCycle
+          </summary>
+          <div className="ml-3 border-l border-zinc-300 pl-2">
+            <Link href="/Ch04LifeCycle" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Ch04LifeCycle
+            </Link>
+          </div>
+        </details>
+        <details name="app-menu" className="mt-2">
+          <summary className="cursor-pointer rounded px-3 py-2 font-semibold hover:bg-zinc-200">
+            Ch05Routing
+          </summary>
+          <div className="ml-3 border-l border-zinc-300 pl-2">
+            <Link href="/Ch05Routing/Exam01Navigation" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam01Navigation
+            </Link>
+            <Link href="/Ch05Routing/Exam02QueryString" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam02QueryString
+            </Link>
+            <Link href="/Ch05Routing/Exam02QueryString/ComponentA" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              ComponentA
+            </Link>
+          </div>
+        </details>
+        <details name="app-menu" className="mt-2">
+          <summary className="cursor-pointer rounded px-3 py-2 font-semibold hover:bg-zinc-200">
+            Ch07GlobalState
+          </summary>
+          <div className="ml-3 border-l border-zinc-300 pl-2">
+            <Link href="/Ch07GlobalState/Exam01ColorContext" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam01ColorContext
+            </Link>
+            <Link href="/Ch07GlobalState/Exam02AuthContext" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam02AuthContext
+            </Link>
+          </div>
+        </details>
+        <details name="app-menu" className="mt-2">
+          <summary className="cursor-pointer rounded px-3 py-2 font-semibold hover:bg-zinc-200">
             test
           </summary>
           <div className="ml-3 border-l border-zinc-300 pl-2">
