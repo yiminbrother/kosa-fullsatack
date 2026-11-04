@@ -28,6 +28,19 @@ export default function AppAside() {
             </Link>
           </div>
         </details>
+        <details className="mt-3" open>
+          <summary className="cursor-pointer rounded-lg px-3 py-2 text-sm font-semibold text-zinc-700 hover:bg-indigo-100">
+            day02
+          </summary>
+          <div className="ml-3 border-l border-zinc-200 pl-2">
+            <Link href="/day02/Exam01" className="block rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-indigo-100 hover:text-indigo-700">
+              Exam01
+            </Link>
+            <Link href="/day02/Exam02" className="block rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-indigo-100 hover:text-indigo-700">
+              Exam02
+            </Link>
+          </div>
+        </details>
       </nav>
     </aside>
   );
