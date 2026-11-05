@@ -16,4 +16,7 @@ public class Board {
     private String writer;
     private Date writedAt;
     private long productId;
+    private String fileName;
+    private String fileType;
+    private byte[] fileData;
 }

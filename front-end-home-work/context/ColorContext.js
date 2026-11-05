@@ -5,18 +5,18 @@ import { createContext, useState } from "react";
 
 export const ColorContext = createContext();
 
-export default function ColorContextProvidar({children}){
+export default function ColorContextProvider({children}){
     
 
     const [color, setColor] = useState("black");
 
-    const colors = {
+    const value = {
         color,
         setColor
     }
 
     return(
-        <ColorContext.Provider value={colors}>
+        <ColorContext.Provider value={value}>
             {children}
         </ColorContext.Provider>
     );

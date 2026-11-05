@@ -92,6 +92,9 @@ CREATE TABLE board (
     writer varchar(50) NOT NULL,
     writed_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
     product_id bigint NOT NULL,
+    file_name varchar(255),
+    file_type varchar(255),
+    file_data bytea,
     CONSTRAINT pk_board PRIMARY KEY (board_id),
     CONSTRAINT fk_board_member FOREIGN KEY (writer) REFERENCES member (member_id),
     CONSTRAINT fk_board_product FOREIGN KEY (product_id) REFERENCES product (product_id)
@@ -104,3 +107,6 @@ COMMENT ON COLUMN board.content IS '게시물 내용';
 COMMENT ON COLUMN board.writer IS '작성자 회원 아이디';
 COMMENT ON COLUMN board.writed_at IS '게시물 작성 일시';
 COMMENT ON COLUMN board.product_id IS '후기 대상 상품 번호';
+COMMENT ON COLUMN board.file_name IS '첨부파일 원본 이름';
+COMMENT ON COLUMN board.file_type IS '첨부파일 MIME 타입';
+COMMENT ON COLUMN board.file_data IS '첨부파일 바이너리 데이터';

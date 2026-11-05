@@ -1,5 +1,5 @@
 import ComponetA from "./ComponetA";
-import CompoentB from "./CompoentB";
+import ComponetB from "./ComponetB";
 
 export default function Exam02() {
     return (
@@ -8,8 +8,8 @@ export default function Exam02() {
                 <h2 className="text-lg font-semibold">Exam02</h2>
             </header>
             <div className="space-y-5 p-5">
-                <ComponetA />
-                <CompoentB />
+                <ComponetA/>
+                <ComponetB />
             </div>
         </section>
     );

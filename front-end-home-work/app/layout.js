@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AppHeader from "./AppHeader";
 import AppAside from "./AppAside";
+import ColorContextProvider from "@/context/ColorContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,11 +26,15 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-screen flex-col bg-zinc-100 text-zinc-900">
-        <AppHeader />
+        <ColorContextProvider>
+        
+          <AppHeader />
         <div className="flex flex-1">
           <AppAside />
           <main className="min-w-0 flex-1 p-4 sm:p-8">{children}</main>
         </div>
+        </ColorContextProvider>
+        
       </body>
     </html>
   );

@@ -104,7 +104,7 @@ Exam05StateToProp/
 
 ④ `import useRouter from "next/link";`
 
-답:1
+답:3
 
 ### 4. URL에 맞는 Hook 선택하기
 
@@ -127,7 +127,7 @@ false ?? "없음"
 "" ?? "없음"
 ``` "없음", "없음", 0, "없음", ""
 
-답: "없음","없음",0,"없음",""
+답: "없음","없음",0,false,""
 
 ## B. 개념 이해 — 5문제
 
@@ -224,7 +224,7 @@ ColorContextProvider가 `color`, `setColor`를 제공한다고 가정합니다. 
 - Tailwind가 찾을 수 있는 완성된 클래스 문자열을 색상별로 준비합니다.
 - 두 컴포넌트가 같은 Provider 아래에 있어야 합니다.
 
-답:
+답: app\day02\Exam02 참고 
 
 ### 14. 로그인 입력값 변경과 취소
 

@@ -1,17 +1,18 @@
 "use client"
 
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+// import { Suspense } from "react";
 
-export default function ComponentA() {
-    return (
-        <Suspense fallback={<p className="p-5 text-sm text-gray-500">쿼리 문자열을 불러오는 중입니다...</p>}>
-            <ComponentAContent />
-        </Suspense>
-    );
-}
+// export default function ComponentA() {
+//     return (
+//         <Suspense fallback={<p className="p-5 text-sm text-gray-500">쿼리 문자열을 불러오는 중입니다...</p>}>
+//             <ComponentAContent />
+//         </Suspense>
+//     );
+// }
 
-function ComponentAContent() {
+
+export default function ComponentAContent() {
     const queryString = useSearchParams(); // queryString 받아오기
     // URL이 변경되면 최신 쿼리 문자열을 바로 읽습니다.
     const key1 = queryString.get("key1");

@@ -9,6 +9,9 @@ Table board [note: '상품 후기 게시판'] {
   writer varchar(50) [not null, note: '작성자 회원 아이디']
   writed_at timestamp [not null, default: `CURRENT_TIMESTAMP`, note: '게시물 작성 일시']
   product_id bigint [not null, note: '후기 대상 상품 번호']
+  file_name varchar(255) [note: '첨부파일 원본 이름']
+  file_type varchar(255) [note: '첨부파일 MIME 타입']
+  file_data bytea [note: '첨부파일 바이너리 데이터']
 }
 
 Table member [note: '회원 정보'] {

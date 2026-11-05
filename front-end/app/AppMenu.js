@@ -120,6 +120,16 @@ export default function AppMenu() {
         </details>
         <details name="app-menu" className="mt-2">
           <summary className="cursor-pointer rounded px-3 py-2 font-semibold hover:bg-zinc-200">
+            Ch08RestAPI
+          </summary>
+          <div className="ml-3 border-l border-zinc-300 pl-2">
+            <Link href="/Ch08RestAPI/Exam01Board" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam01Board
+            </Link>
+          </div>
+        </details>
+        <details name="app-menu" className="mt-2">
+          <summary className="cursor-pointer rounded px-3 py-2 font-semibold hover:bg-zinc-200">
             test
           </summary>
           <div className="ml-3 border-l border-zinc-300 pl-2">

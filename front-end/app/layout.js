@@ -4,6 +4,7 @@ import AppHeader from "./AppHeader";
 import AppMenu from "./AppMenu";
 import ColorContextProvidar from "@/contexts/ColorContext";
 import AuthContextProvider from "@/contexts/AuthContext";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,9 +34,11 @@ export default function RootLayout({ children }) {
             <AppHeader></AppHeader>
             <div className="flex flex-1">
               <AppMenu />
-              <main className="min-w-0 flex-1 p-4">{children}</main>
+              <main className="min-w-0 flex-1 p-4">
+                <Suspense fallback={<p>로딩중....</p>}>{children}
+                </Suspense>
+              </main>
             </div>
-
           </ColorContextProvidar>
         </AuthContextProvider>
       </body>
