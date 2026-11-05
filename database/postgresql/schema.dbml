@@ -2,8 +2,8 @@ Project database {
   database_type: 'PostgreSQL'
 }
 
-Table board [note: '상품 후기 게시판'] {
-  board_id bigint [pk, not null, increment, note: '게시물 번호']
+Table review [note: '상품 후기 게시판'] {
+  review_id bigint [pk, not null, increment, note: '게시물 번호']
   title varchar(200) [not null, note: '게시물 제목']
   content text [not null, note: '게시물 내용']
   writer varchar(50) [not null, note: '작성자 회원 아이디']
@@ -63,8 +63,8 @@ Table seller [note: '상품 판매자 정보'] {
   registered_at timestamp [not null, default: `CURRENT_TIMESTAMP`, note: '판매자 등록 일시']
 }
 
-Ref fk_board_member: board.writer > member.member_id
-Ref fk_board_product: board.product_id > product.product_id
+Ref fk_review_member: review.writer > member.member_id
+Ref fk_review_product: review.product_id > product.product_id
 Ref fk_order_item_orders: order_item.order_id > orders.order_id
 Ref fk_order_item_product: order_item.product_id > product.product_id
 Ref fk_orders_member: orders.member_id > member.member_id

@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 export default function AppMenu() {
   return (
@@ -123,8 +123,8 @@ export default function AppMenu() {
             Ch08RestAPI
           </summary>
           <div className="ml-3 border-l border-zinc-300 pl-2">
-            <Link href="/Ch08RestAPI/Exam01Board" className="block rounded px-3 py-2 hover:bg-zinc-200">
-              Exam01Board
+            <Link href="/Ch08RestAPI/Exam01Review" className="block rounded px-3 py-2 hover:bg-zinc-200">
+              Exam01Review
             </Link>
           </div>
         </details>

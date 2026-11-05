@@ -24,7 +24,7 @@ class MapperBindingTests {
     @Test
     void everyDaoMethodHasAStatementAndBindableParameters() throws Exception {
         var configuration = sessionFactory.getConfiguration();
-        for (Class<?> dao : new Class<?>[] {BoardDao.class, MemberDao.class,
+        for (Class<?> dao : new Class<?>[] {ReviewDao.class, MemberDao.class,
                 OrdersDao.class, OrderItemDao.class, ProductDao.class, SellerDao.class}) {
             for (Method method : dao.getDeclaredMethods()) {
                 String id = dao.getName() + "." + method.getName();

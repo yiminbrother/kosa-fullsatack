@@ -5,11 +5,11 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.mycompany.demo.database.dao.BoardDao;
+import com.mycompany.demo.database.dao.ReviewDao;
 import com.mycompany.demo.database.dao.ProductDao;
 import com.mycompany.demo.database.dao.SellerDao;
 import com.mycompany.demo.database.dto.Pager;
-import com.mycompany.demo.database.entity.Board;
+import com.mycompany.demo.database.entity.Review;
 import com.mycompany.demo.database.entity.Product;
 import com.mycompany.demo.database.entity.Seller;
 
@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductService {
     private final ProductDao productDao;
     private final SellerDao sellerDao;
-    private final BoardDao boardDao;
+    private final ReviewDao reviewDao;
 
     // Seller CRUD 메소드 ---------------------------------------
     public int createSeller(Seller seller) {
@@ -74,28 +74,28 @@ public class ProductService {
         return productDao.selectCount(where);
     }
 
-    // Board CRUD 메소드 ---------------------------------------
-    public int createBoard(Board board) {
-        return boardDao.insert(board);
+    // Review CRUD 메소드 ---------------------------------------
+    public int createReview(Review review) {
+        return reviewDao.insert(review);
     }
 
-    public Board getBoard(long boardId) {
-        return boardDao.selectById(boardId);
+    public Review getReview(long reviewId) {
+        return reviewDao.selectById(reviewId);
     }
 
-    public int updateBoard(Board board) {
-        return boardDao.update(board);
+    public int updateReview(Review review) {
+        return reviewDao.update(review);
     }
 
-    public int deleteBoard(String boardId) {
-        return boardDao.deleteById(boardId);
+    public int deleteReview(String reviewId) {
+        return reviewDao.deleteById(reviewId);
     }
 
-    public List<Board> listBoard(Pager pager, Map<String, Object> where) {
-        return boardDao.selectPage(pager, where);
+    public List<Review> listReview(Pager pager, Map<String, Object> where) {
+        return reviewDao.selectPage(pager, where);
     }
 
-    public int pagingBoardTotalRows(Map<String, Object> where) {
-        return boardDao.selectCount(where);
+    public int pagingReviewTotalRows(Map<String, Object> where) {
+        return reviewDao.selectCount(where);
     }
 }

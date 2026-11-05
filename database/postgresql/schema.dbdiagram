@@ -14,12 +14,6 @@
         "y": -193.7861571389379
       },
       {
-        "name": "board",
-        "schemaName": "public",
-        "x": 628.6386103899379,
-        "y": -44.67633531878873
-      },
-      {
         "name": "product",
         "schemaName": "public",
         "x": -57.40895480530152,
@@ -42,6 +36,12 @@
         "schemaName": "public",
         "x": 517.8821257428297,
         "y": 393.8591166334496
+      },
+      {
+        "name": "review",
+        "schemaName": "public",
+        "x": 534.9159315548554,
+        "y": -59.93735013757862
       }
     ],
     "tableGroupCollapseStates": [],
@@ -268,6 +268,36 @@
           "member_id"
         ],
         "secondTableName": "member",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "writer"
+        ],
+        "firstTableName": "review",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "member_id"
+        ],
+        "secondTableName": "member",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "product_id"
+        ],
+        "firstTableName": "review",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "product_id"
+        ],
+        "secondTableName": "product",
         "secondSchemaName": "public",
         "secondRelation": "1",
         "checkPoints": []

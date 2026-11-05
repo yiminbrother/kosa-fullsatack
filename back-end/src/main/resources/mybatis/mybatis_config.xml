@@ -7,7 +7,7 @@
         <setting name="jdbcTypeForNull" value="NULL" />
     </settings>
     <typeAliases>
-        <typeAlias alias="board" type="com.mycompany.demo.database.entity.Board" />
+        <typeAlias alias="review" type="com.mycompany.demo.database.entity.Review" />
         <typeAlias alias="member" type="com.mycompany.demo.database.entity.Member" />
         <typeAlias alias="orderItem" type="com.mycompany.demo.database.entity.OrderItem" />
         <typeAlias alias="orders" type="com.mycompany.demo.database.entity.Orders" />

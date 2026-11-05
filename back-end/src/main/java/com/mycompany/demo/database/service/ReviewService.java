@@ -5,25 +5,30 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.mycompany.demo.database.dao.BoardDao;
+import com.mycompany.demo.database.dao.ReviewDao;
 import com.mycompany.demo.database.dto.Pager;
-import com.mycompany.demo.database.entity.Board;
+import com.mycompany.demo.database.entity.Review;
 
 @Service 
 public class ReviewService {
 
-    private final BoardDao boardDao;
+    private final ReviewDao reviewDao;
 
-    public ReviewService(BoardDao boardDao) {
-        this.boardDao = boardDao;
+    public ReviewService(ReviewDao reviewDao) {
+        this.reviewDao = reviewDao;
     }
 
     public int pagingTotalRows(Map<String,Object> where) {
-        return boardDao.selectCount(where);
+        return reviewDao.selectCount(where);
     }
 
-    public List<Board> listReview(Pager pager, Map<String,Object> where) {
-        return boardDao.selectPage(pager, where);
+    public List<Review> listReview(Pager pager, Map<String,Object> where) {
+        return reviewDao.selectPage(pager, where);
     }
+
+    public int write(Review review) {
+        return reviewDao.insert(review);
+    }
+
 
 }
