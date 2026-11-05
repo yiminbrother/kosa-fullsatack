@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-export default function Exam01ReviewWrite() {
+export default function ReivewWrite() {
   return (
     <section className="overflow-hidden rounded-xl border border-zinc-200 bg-white text-zinc-900 shadow-sm">
       <header className="border-b border-zinc-200 bg-zinc-50 px-5 py-3">
-        <h2 className="text-lg font-semibold">Exam01ReviewWrite</h2>
+        <h2 className="text-lg font-semibold">ReivewWrite</h2>
       </header>
       <div className="p-5">
         <p className="mb-4 font-semibold">상품 후기 작성</p>

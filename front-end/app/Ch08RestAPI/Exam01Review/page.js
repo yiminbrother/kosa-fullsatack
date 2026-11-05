@@ -45,7 +45,7 @@ export default function Exam01Review() {
       <div className="min-w-0 p-3 sm:p-5">
         <div className="mb-4 flex items-center justify-between gap-3">
           <p className="font-semibold">상품 후기 게시판</p>
-          <Link href="/Ch08RestAPI/Exam01ReviewWrite"
+          <Link href="/Ch08RestAPI/ReivewWrite"
             className="shrink-0 rounded-md bg-orange-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
             글쓰기
           </Link>
