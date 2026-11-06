@@ -15,7 +15,7 @@ export default function Exam09DomRef() {
     console.log(inputRef.current.value)
   }
   const focusOut = ()=>{
-      inputRef.current.style.backgroundColor = "white";
+    inputRef.current.style.backgroundColor = "white";
     inputRef.current.style.color = "black";
   }
 

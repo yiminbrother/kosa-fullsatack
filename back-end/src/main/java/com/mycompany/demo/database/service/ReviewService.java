@@ -30,5 +30,10 @@ public class ReviewService {
         return reviewDao.insert(review);
     }
 
+    public Review getReview(long reviewId) {
+        return reviewDao.selectById(reviewId);
+    }
+
+    
 
 }

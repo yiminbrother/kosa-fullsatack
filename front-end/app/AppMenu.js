@@ -1,9 +1,27 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 export default function AppMenu() {
+  const [expanded, setExpanded] = useState(true);
+
   return (
-    <aside className="w-64 shrink-0 border-r border-zinc-200 bg-zinc-100 p-4 text-zinc-900">
-      <nav aria-label="메인 메뉴">
+    <aside className={`${expanded ? "w-64 p-4" : "w-16 p-2"} shrink-0 border-r border-zinc-200 bg-zinc-100 text-zinc-900 transition-[width,padding] duration-200 motion-reduce:transition-none`}>
+      <div className={`mb-3 flex items-center ${expanded ? "justify-between" : "justify-center"}`}>
+        {expanded && <span className="px-3 text-xs font-semibold tracking-wider text-zinc-500">메뉴</span>}
+        <button type="button" onClick={() => setExpanded(value => !value)}
+          aria-expanded={expanded} aria-controls="app-menu-navigation"
+          aria-label={expanded ? "메뉴 접기" : "메뉴 펼치기"}
+          title={expanded ? "메뉴 접기" : "메뉴 펼치기"}
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-zinc-200 bg-white transition-colors hover:bg-orange-50 hover:text-orange-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 5h16v14H4zM9 5v14" />
+            <path d={expanded ? "m15 9-3 3 3 3" : "m13 9 3 3-3 3"} />
+          </svg>
+        </button>
+      </div>
+      <nav id="app-menu-navigation" aria-label="메인 메뉴" hidden={!expanded}>
         <Link href="/" className="block rounded px-3 py-2 hover:bg-zinc-200">
           홈
         </Link>

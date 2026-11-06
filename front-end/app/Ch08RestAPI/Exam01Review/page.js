@@ -2,7 +2,19 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getReviewList } from "@/apis/reivewApi";
+import { getReviewList } from "@/apis/reviewApi";
+
+function getAttachmentEmoji(fileName) {
+  const extension = fileName.split(".").pop().toLowerCase();
+  if (["jpg", "jpeg", "png", "gif", "webp", "svg", "bmp"].includes(extension)) return "🖼️";
+  if (["mp4", "mov", "avi", "mkv", "webm"].includes(extension)) return "🎬";
+  if (["mp3", "wav", "ogg", "flac", "m4a"].includes(extension)) return "🎵";
+  if (["zip", "rar", "7z", "tar", "gz"].includes(extension)) return "🗜️";
+  if (["pdf", "doc", "docx", "hwp", "hwpx", "txt"].includes(extension)) return "📄";
+  if (["xls", "xlsx", "csv"].includes(extension)) return "📊";
+  if (["ppt", "pptx"].includes(extension)) return "📽️";
+  return "📎";
+}
 
 export default function Exam01Review() {
 
@@ -13,8 +25,8 @@ export default function Exam01Review() {
 
   useEffect(() => {
 
-        // 방법1
-       const loadReviews = async () => {
+    // 방법1
+    const loadReviews = async () => {
       try {
         const response = await getReviewList(pageNo);
         setReviews(response.data.data);
@@ -45,7 +57,7 @@ export default function Exam01Review() {
       <div className="min-w-0 p-3 sm:p-5">
         <div className="mb-4 flex items-center justify-between gap-3">
           <p className="font-semibold">상품 후기 게시판</p>
-          <Link href="/Ch08RestAPI/ReivewWrite"
+          <Link href="/Ch08RestAPI/Exam01Review/ReviewWrite"
             className="shrink-0 rounded-md bg-orange-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
             글쓰기
           </Link>
@@ -67,16 +79,24 @@ export default function Exam01Review() {
                 <tr key={item.reviewId} className="border-b border-zinc-200 hover:bg-zinc-50">
                   <td className="w-px whitespace-nowrap px-4 py-3">{item.reviewId}</td>
                   <td className="w-full px-4 py-3 break-words" title={item.title}>
-                    {Array.from(item.title).length > 25
-                      ? `${Array.from(item.title).slice(0, 25).join("")}....`
-                      : item.title}
+                    <Link href={{ pathname: "/Ch08RestAPI/Exam01Review/ReviewDetail", query: { reviewId: item.reviewId } }} className="text-slate-600 transition-colors hover:text-blue-600 hover:underline focus-visible:outline-2 focus-visible:outline-orange-500">
+                      {Array.from(item.title).length > 25
+                        ? `${Array.from(item.title).slice(0, 25).join("")}....`
+                        : item.title}
+                    </Link>
                   </td>
                   <td className="w-px whitespace-nowrap px-4 py-3">{item.writer}</td>
                   <td className="w-px whitespace-nowrap px-4 py-3">
                     {new Date(item.writedAt).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul" })}
                   </td>
                   <td className="w-px whitespace-nowrap px-4 py-3">{item.productId}</td>
-                  <td className="w-px whitespace-nowrap px-4 py-3" title={item.fileName || undefined}>{item.fileName || "—"}</td>
+                  <td className="w-px whitespace-nowrap px-4 py-3">
+                    {item.fileName ? (
+                      <span role="img" aria-label={`첨부파일: ${item.fileName}`}>
+                        {getAttachmentEmoji(item.fileName)}
+                      </span>
+                    ) : "—"}
+                  </td>
                 </tr>
               ))}
               {reviews.length === 0 && (
@@ -127,7 +147,7 @@ export default function Exam01Review() {
             </button>
           </nav>
         )}
-        
+
 
         {/* 새 방식: pager의 현재/전체 페이지를 표시하고 한 페이지씩 이동합니다. */}
         {/* {pager && pager.totalPageNo > 0 && (

@@ -45,7 +45,7 @@
         SELECT review_id, title, writer, writed_at, product_id, file_name
         FROM review
         <include refid="searchCondition" />
-        ORDER BY review_id ASC
+        ORDER BY review_id DESC
         LIMIT #{pager.rowsPerPage} OFFSET #{pager.startRowIndex}
     </select>
 

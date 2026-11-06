@@ -35,7 +35,8 @@ export default function RootLayout({ children }) {
             <div className="flex flex-1">
               <AppMenu />
               <main className="min-w-0 flex-1 p-4">
-                <Suspense fallback={<p>로딩중....</p>}>{children}
+                <Suspense fallback={<p>로딩중....</p>}>
+                {children}
                 </Suspense>
               </main>
             </div>
