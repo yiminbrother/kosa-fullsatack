@@ -1,13 +1,9 @@
 "use client";
 
-import { writeReview } from "@/apis/reviewApi";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 export default function ReviewWrite() {
-  const router = useRouter();
-  let inputFileRef = useRef(null);
   // 양식의 문자 파트 값을 갖는 상태 정의 
   const [review, setReview] = useState({
     title: "",
@@ -25,7 +21,7 @@ export default function ReviewWrite() {
   const [errors, setErrors] = useState({});
 
   // 모든 양식이 유효한지 여부에 대한 상태 정의 
-  const [isValid, setIsValid] = useState(false);
+
 
   // title 양식 유효성검사 
   const validateTitle = (value) => {
@@ -39,61 +35,8 @@ export default function ReviewWrite() {
   };
 
   // 제출 버튼을 클릭했을때 호출되는 이벤트 처리함수
-  const handleSubmit = async (event) => {
-
-    // <form>태그의 action 기능을 비활성화 
-    event.preventDefault();
-
-    // submit 이벤트가 발생한 요소
-    // const form = event.currentTarget;
-
-
-    // 유효성 검사할 대상 양식명과 유효성 검사 에러 메시지
-    const nextErrors = {
-      title: validateTitle(review.title),
-      content: validateContent(review.content)
-    };
-
-    setErrors(nextErrors);
-
-    // 유효성 검사 실패가 난 첫번쨰 필드
-    // 암시적 false
-    // 1. 0 
-    // 2. ""
-    // 3. null
-    // 4. undefined
-    const firstInvalidField = Object.keys(nextErrors) // object는 자바스크립트 객체로 key 값만 뽑아옴
-      .find((name) => nextErrors[name]); // find는 앞에값에 true가 나오는값을 리턴함 이미선언한 해당 키값으로 nextErrors에 넣은다음에 valid검사 ex) title => nextErrors[title]
-    // 유효성 검사 실패가 난 필드명이 있을 경우 false를 세팅, 없을 경우(undefined) true를 세팅
-
-
-    if (firstInvalidField) {
-      // 유효성 검사 실패난 필드명이 있을경우, 해당 필드양식으로 focus를 이동
-      // form.elements.namedItem(firstInvalidField).focus(); 
-      document.querySelector(`[name="${firstInvalidField}"]`).focus();
-
-    } else {
-      // 유효성 검사가 실패난 필드명이 없을 경우(undefined)
-      // 멀티파트/ 폼데이터 형식으로 본문 내용을 작성     
-      const data = new FormData();
-      data.append("title", review.title);
-      data.append("content", review.content);
-      data.append("writer", review.writer);
-      data.append("productId", review.productId);
-      // 넘길 데이터 파일 추가
-      if (inputFileRef.current.files.length === 1) {
-        data.append("file", inputFileRef.current.files[0]);
-      }
-      try {
-
-        // 백엔드 엔드포인트 호출 
-        await writeReview(data); // 동기함수로 전환 될때까지 기다림
-        // redirect("/Ch08RestAPI/Exam01Review");  //
-        router.push("/Ch08RestAPI/Exam01Review");
-      } catch (error) {
-        console.error(error);
-      }
-    }
+  const handleValidate = () => {
+    setErrors({ title: validateTitle(review.title), content: validateContent(review.content) });
   };
 
 
@@ -109,7 +52,7 @@ export default function ReviewWrite() {
             <h3 className="mt-1 text-2xl font-bold tracking-tight">상품 후기 작성</h3>
             <p className="mt-2 text-sm leading-6 text-zinc-500 dark:text-zinc-400">직접 사용한 솔직한 후기를 들려주세요.</p>
           </div>
-          <form encType="multipart/form-data" noValidate onSubmit={handleSubmit} onChange={() => setIsValid(false)} className="grid grid-cols-1 gap-4 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm sm:grid-cols-2 sm:p-5 dark:border-zinc-700 dark:bg-zinc-900">
+          <div className="grid grid-cols-1 gap-4 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm sm:grid-cols-2 sm:p-5 dark:border-zinc-700 dark:bg-zinc-900">
             <div className="sm:col-span-2">
               <label htmlFor="title" className="mb-1 block text-sm font-semibold">제목</label>
               <input id="title" value={review.title} onChange={handleChange} aria-invalid={Boolean(errors.title)} aria-describedby={errors.title ? "title-error" : undefined} name="title" type="text" required maxLength={200} placeholder="상품 사용 후기를 한 줄로 요약해 주세요 (최대 200자)" className="w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm outline-none transition placeholder:text-zinc-400 focus:border-orange-400 focus:bg-white focus:ring-2 focus:ring-orange-100 dark:border-zinc-600 dark:bg-zinc-800 dark:focus:bg-zinc-800 dark:focus:ring-orange-900/40" />
@@ -131,15 +74,15 @@ export default function ReviewWrite() {
             <div className="rounded-xl border border-dashed border-zinc-300 bg-zinc-50 p-3 sm:col-span-2 dark:border-zinc-600 dark:bg-zinc-800/40">
               <label htmlFor="file" className="mb-1 block text-sm font-semibold">📎 첨부파일 <span className="ml-1 text-xs font-normal text-zinc-500">선택</span></label>
               <p className="mb-3 text-xs text-zinc-500 dark:text-zinc-400">후기에 함께 올릴 사진이나 파일을 선택하세요.</p>
-              <input ref={inputFileRef} id="file" name="file" type="file" className="block w-full text-sm file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-white file:px-4 file:py-2 file:font-medium file:text-orange-600 dark:file:bg-zinc-800 dark:file:text-zinc-100" />
+              <input id="file" name="file" type="file" className="block w-full text-sm file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-white file:px-4 file:py-2 file:font-medium file:text-orange-600 dark:file:bg-zinc-800 dark:file:text-zinc-100" />
             </div>
             <div className="flex flex-wrap items-center justify-end gap-3 border-t border-zinc-100 pt-3 sm:col-span-2 dark:border-zinc-800">
               <Link href="/Ch08RestAPI/Exam01Review" className="rounded-lg border border-zinc-300 px-3 py-1.5 text-xs font-medium transition hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-orange-500 dark:border-zinc-600 dark:hover:bg-zinc-800">
                 목록
               </Link>
-              <button type="submit" className="rounded-lg bg-orange-500 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-orange-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">후기 등록</button>
+              <button type="button" onClick={handleValidate} className="rounded-lg bg-orange-500 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-orange-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">후기 등록</button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </section>

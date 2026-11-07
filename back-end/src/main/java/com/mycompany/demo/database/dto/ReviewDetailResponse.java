@@ -18,7 +18,7 @@ public class ReviewDetailResponse {
     private String writer;
     private long productId;
     private String fileName;
-
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX", timezone = "Asia/Seoul")
     private Date writedAt;
+    private boolean deleteFile;
 }

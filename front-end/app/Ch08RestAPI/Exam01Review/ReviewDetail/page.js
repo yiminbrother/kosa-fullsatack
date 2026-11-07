@@ -1,6 +1,6 @@
 "use client";
 
-import { getReviewImageUrl, reviewDetail } from "@/apis/reviewApi";
+import { getReviewFileUrl, reviewDetail } from "@/apis/reviewApi";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -9,39 +9,29 @@ import { useEffect, useState } from "react";
 export default function ReviewDetail() {
   const searchParams = useSearchParams();
   const reviewId = searchParams.get("reviewId");
-  const [failedPreviewId, setFailedPreviewId] = useState(null);
+  const [failedImage, setFailedImage] = useState(null);
   const [review, setReview] = useState({
-    reviewId,
+    reviewId: "",
     title: "",
     content: "",
     writer: "",
     productId: "",
     fileName: "",
-    writedAt: ""
+    writedAt: "",
   });
 
-  //reviewId를 백액드로 전송
-  // reviewDetail(review)
-  //   .then((resp) => {
-  //     setReview(resp.data);
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
-  useEffect(()=>{
+  useEffect(() => {
     const work = async () => {
-    try {
-      console.log("work 실행");
-      const resp = await reviewDetail(reviewId);
-      setReview(resp.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  work();
-  },[reviewId]);
-  //해당 게시물을 JSON으로 받고
-  //UI 변경
+      try {
+        console.log("work() 실행");
+        const response = await reviewDetail(reviewId);
+        setReview(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    work();
+  }, [reviewId]);
 
   return (
     <section className="min-w-0 w-full rounded-lg border border-zinc-200 bg-white text-zinc-900 shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100">
@@ -77,32 +67,38 @@ export default function ReviewDetail() {
               {review.content || "후기 내용을 불러오면 이곳에 표시됩니다."}
             </p>
             <div className="mt-3 flex items-center gap-3 rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-800/40">
-              {review.reviewId && /\.(jpe?g|png|gif|webp|bmp|avif)$/i.test(review.fileName || "") && failedPreviewId !== review.reviewId ? (
+              {review.fileName && /\.(jpe?g|png|gif|webp|avif|bmp)$/i.test(review.fileName) && failedImage !== `${review.reviewId}/${review.fileName}` ? (
                 <Image
-                  key={review.reviewId}
-                  src={getReviewImageUrl(review.reviewId)}
+                  src={getReviewFileUrl(review.reviewId)+`&fileName=${review.fileName}`}
                   alt={`첨부 이미지: ${review.fileName}`}
                   width={80}
                   height={80}
-                  unoptimized
-                  onError={() => setFailedPreviewId(review.reviewId)}
-                    className="order-last ml-auto h-20 w-20 shrink-0 rounded-lg border border-zinc-200 bg-white object-contain dark:border-zinc-700"
+                  unoptimized /*이미지최적화 생략 정적이미지이기떄문에 바로넣는게맞다? */
+                  onError={() => setFailedImage(`${review.reviewId}/${review.fileName}`)}
+                  className="order-last ml-auto h-20 w-20 shrink-0 rounded-lg border border-zinc-200 bg-white object-contain dark:border-zinc-700"
+                  loading="eager" /*이미지 바로불러오기 */
                 />
               ) : (
                 <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-xl dark:bg-zinc-800">📎</span>
               )}
               <div className="min-w-0">
                 <h4 className="text-xs font-medium text-zinc-500 dark:text-zinc-400">첨부파일</h4>
-                <p className="mt-1 break-all text-sm">{review.fileName || "첨부파일이 없습니다."}</p>
+                <p className="mt-1 break-all text-sm">
+                  {review.fileName ? (
+                    <a href={getReviewFileUrl(review.reviewId)} className="underline underline-offset-4">
+                      {review.fileName} 다운로드
+                    </a>
+                  ) : "첨부파일이 없습니다."}
+                </p>
               </div>
             </div>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-zinc-100 px-4 py-3 sm:px-5 dark:border-zinc-800">
             <div className="flex gap-2">
-              <Link href={{ pathname: "/Ch08RestAPI/Exam01Review/ReviewUpdate", query: { reviewId } }} className="rounded-lg border border-zinc-300 bg-white px-4 py-2 text-xs font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500 dark:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800">
+              <Link href={`/Ch08RestAPI/Exam01Review/ReviewUpdate?reviewId=${review.reviewId}`} className="rounded-lg border border-zinc-300 px-4 py-2 text-xs font-semibold transition hover:bg-zinc-100 dark:border-zinc-600 dark:hover:bg-zinc-800">
                 수정하기
               </Link>
-              <button type="button" className="rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-xs font-semibold text-red-600 transition-colors hover:bg-red-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 dark:border-red-900 dark:bg-red-950/40 dark:text-red-400 dark:hover:bg-red-950">
+              <button type="button" className="rounded-lg border border-red-200 px-4 py-2 text-xs font-semibold text-red-600 transition hover:bg-red-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950/40">
                 삭제하기
               </button>
             </div>

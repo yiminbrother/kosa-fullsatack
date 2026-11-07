@@ -33,6 +33,9 @@ public class ReviewService {
     public Review getReview(long reviewId) {
         return reviewDao.selectById(reviewId);
     }
+    public int update(Review review){
+        return reviewDao.update(review);
+    }
 
     
 
