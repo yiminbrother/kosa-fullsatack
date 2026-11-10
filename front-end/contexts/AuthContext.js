@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useEffect, useState } from "react"
+import api from "@/apis/axios";
 
 export const AuthContext = createContext();
 
@@ -9,12 +10,22 @@ export default function AuthContextProvider({children}){
     const [memberId, setMemberId] = useState("");
     const [jwt, setJwt] = useState("");
     const [isInitialized, setIsInitialized] = useState(false);
+
+    useEffect(() => {
+        if (jwt) {
+            api.defaults.headers.common.Authorization = `Bearer ${jwt}`;
+        } else {
+            delete api.defaults.headers.common.Authorization;
+        }
+    }, [jwt]);
+
     // 앱 시작 시 저장된 로그인 정보를 복원합니다.
     useEffect(() => {
         const savedMemberId = localStorage.getItem("memberId");
         const savedJwt = localStorage.getItem("jwt");
         
         if (savedMemberId && savedJwt) {
+           
             // localStorage는 서버 렌더링 중 읽을 수 없어 마운트 후 상태를 복원합니다.
             /* eslint-disable react-hooks/set-state-in-effect */
             setMemberId(savedMemberId);
@@ -27,6 +38,7 @@ export default function AuthContextProvider({children}){
     }, []);
 
     const login = (memberId, jwt) => {
+      
         localStorage.setItem("memberId", memberId);
         localStorage.setItem("jwt", jwt);
         setMemberId(memberId);
@@ -34,6 +46,7 @@ export default function AuthContextProvider({children}){
     };
 
     const logout = () => {
+       
         localStorage.removeItem("memberId");
         localStorage.removeItem("jwt");
         setMemberId("");

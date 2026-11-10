@@ -13,7 +13,7 @@ export default function AppHeader() {
         if (authContext.memberId) {
             authContext.logout();
         } else {
-            router.push("/Ch07GlobalState/Exam02AuthContext/LoginComponent");
+            router.push("/Ch08RestAPI/Exam03MemberLogin");
         }
     };
     return (
